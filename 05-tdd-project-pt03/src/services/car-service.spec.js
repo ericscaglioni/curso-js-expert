@@ -66,7 +66,7 @@ describe('Car Service', () => {
   })
 
   it('Should calculate final amount in Reais given a carCategory, customer and numberOfDays', async () => {
-    const { sut } = makeSut()
+    const { sut, sandbox } = makeSut()
 
     const customer = { ...validCustomer }
     customer.age = 50
@@ -76,14 +76,17 @@ describe('Car Service', () => {
 
     const numberOfDays = 5
 
+    sandbox.stub(
+      sut,
+      "taxesBasedOnAge"
+    ).get(() => [{ from: 40, to: 50, then: 1.3 }])
+
     const expected = brazilianCurrencyFormat(244.4)
     const result = await sut.calculateFinalPrice(
       customer,
       carCategory,
       numberOfDays
     )
-    console.log('meu rsult', result)
-
     expect(result).to.be.equal(expected)
   })
 })

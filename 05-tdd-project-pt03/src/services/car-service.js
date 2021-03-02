@@ -1,6 +1,6 @@
 const CarRepository = require('../repository/car-repository')
-const Tax = require('../entities/tax')
-const { brazilianCurrencyFormat } = require('../../utils/formatter')
+const { Tax, Transaction } = require('../entities')
+const { brazilianCurrencyFormat, brazilianLongDateFormat } = require('../../utils/formatter')
 
 class CarService {
   constructor () {
@@ -35,6 +35,25 @@ class CarService {
 
     const finalPrice = ((tax * price) * numberOfDays)
     return brazilianCurrencyFormat(finalPrice)
+  }
+
+  async rent(customer, carCategory, numberOfDays) {
+    const car = await this.getAvailableCarByCategory(carCategory)
+    const finalPrice = await this.calculateFinalPrice(
+      customer,
+      carCategory,
+      numberOfDays
+    )
+    const today = new Date()
+    today.setDate(today.getDate() + numberOfDays)
+    const dueDate = brazilianLongDateFormat(today)
+
+    return new Transaction({
+      customer,
+      car,
+      amount: finalPrice,
+      dueDate
+    })
   }
 }
 

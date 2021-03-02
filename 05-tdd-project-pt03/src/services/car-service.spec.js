@@ -4,6 +4,7 @@ const { validCar, validCarCategory, validCustomer } = require('./test/mocks')
 const { expect } = require('chai')
 const sinon = require('sinon')
 const { brazilianCurrencyFormat } = require('../../utils/formatter')
+const { Transaction } = require('../entities')
 
 const makeSut = () => {
   const sandbox = sinon.createSandbox()
@@ -88,5 +89,45 @@ describe('Car Service', () => {
       numberOfDays
     )
     expect(result).to.be.equal(expected)
+  })
+
+  it('Should return a rent receipt given a customer and a car category', async () => {
+    const { sut, sandbox } = makeSut()
+
+    const car = validCar
+    const carCategory = {
+      ...validCarCategory,
+      price: 37.6,
+      carIds: [car.id]
+    }
+
+    const customer = { ...validCustomer }
+    customer.age = 20
+
+    const numberOfDays = 5
+    const dueDate = '10 de novembro de 2020'
+
+    const now = new Date(2020, 10, 5)
+    sandbox.useFakeTimers(now.getTime())
+    sandbox.stub(
+      sut.carRepository,
+      sut.carRepository.find.name
+    ).resolves(car)
+
+    const expectedAmount = brazilianCurrencyFormat(206.8)
+    const result = await sut.rent(
+      customer,
+      carCategory,
+      numberOfDays
+    )
+
+    const expected = new Transaction({
+      customer,
+      car,
+      amount: expectedAmount,
+      dueDate
+    })
+
+    expect(result).to.be.deep.equal(expected)
   })
 })

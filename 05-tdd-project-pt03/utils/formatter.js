@@ -3,6 +3,13 @@ const brazilianCurrencyFormat = (value) => new Intl.NumberFormat('pt-br', {
     currency: 'BRL'
   }).format(value)
 
+const brazilianLongDateFormat = (date) => date.toLocaleDateString('pt-br', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+})
+
 module.exports = {
-    brazilianCurrencyFormat
+    brazilianCurrencyFormat,
+    brazilianLongDateFormat
 }

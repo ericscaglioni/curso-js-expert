@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1d01b6a3-8124-44b8-bea2-e7c744711886",
+    "name": "Camaro",
+    "manufacturer": "Hyundai",
+    "releaseYear": 2020,
+    "available": true
+  },
+  {
+    "id": "04a3bdf8-8331-4363-aa27-02c193a57845",
+    "name": "Escalade",
+    "manufacturer": "Mini",
+    "releaseYear": 2020,
+    "available": true
+  },
+  {
+    "id": "60a43bbe-0ed2-4bb3-bfe4-004cc2e15ea4",
+    "name": "Altima",
+    "manufacturer": "Chrysler",
+    "releaseYear": 2020,
+    "available": true
+  }
+]

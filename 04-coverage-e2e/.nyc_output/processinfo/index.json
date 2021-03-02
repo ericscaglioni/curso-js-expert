@@ -1,0 +1,1 @@
+{"processes":{"b8902d4b-427d-4cff-809f-8d57503b9aca":{"parent":null,"children":["c069b6f2-0248-40d0-9bd4-4dcd312f48c7"]},"c069b6f2-0248-40d0-9bd4-4dcd312f48c7":{"parent":"b8902d4b-427d-4cff-809f-8d57503b9aca","children":[]}},"files":{"/home/eris_ferreira/Desktop/estudos-js-expert/04-coverage-e2e/api.js":["c069b6f2-0248-40d0-9bd4-4dcd312f48c7"]},"externalIds":{}}

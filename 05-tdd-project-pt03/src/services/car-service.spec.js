@@ -4,7 +4,7 @@ const { validCar, validCarCategory, validCustomer } = require('./test/mocks')
 const { expect } = require('chai')
 const sinon = require('sinon')
 const { brazilianCurrencyFormat } = require('../../utils/formatter')
-const { Transaction, CarCategory, Car, Customer } = require('../entities')
+const { Transaction } = require('../entities')
 
 const makeSut = () => {
   const sandbox = sinon.createSandbox()
@@ -94,14 +94,14 @@ describe('Car Service', () => {
   it('Should return a rent receipt given a customer and a car category', async () => {
     const { sut, sandbox } = makeSut()
 
-    const car = new Car(validCar)
-    const carCategory = new CarCategory({
+    const car = validCar
+    const carCategory = {
       ...validCarCategory,
       price: 37.6,
       carIds: [car.id]
-    })
+    }
 
-    const customer = new Customer({ ...validCustomer })
+    const customer = { ...validCustomer }
     customer.age = 20
 
     const numberOfDays = 5
